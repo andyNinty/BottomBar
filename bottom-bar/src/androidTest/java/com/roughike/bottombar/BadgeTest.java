@@ -6,7 +6,6 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +32,8 @@ public class BadgeTest {
         bottomBar.setItems(com.roughike.bottombar.test.R.xml.dummy_tabs_three);
         nearby = bottomBar.getTabWithId(com.roughike.bottombar.test.R.id.tab_nearby);
         nearby.setBadgeCount(5);
+        nearby.setBadgeCount(1000, 99, true);
+        nearby.setBadgeCountString("100+");
     }
 
     @Test
@@ -59,6 +60,8 @@ public class BadgeTest {
     @UiThreadTest
     public void whenBadgeCountIsZero_BadgeIsRemoved() {
         nearby.setBadgeCount(0);
+        nearby.setBadgeCountString("");
+        nearby.setBadgeCount(0, 99, true);
         assertNull(nearby.badge);
     }
 
@@ -75,6 +78,9 @@ public class BadgeTest {
         nearby.setBadgeCount(1);
         assertEquals(1, nearby.badge.getCount());
 
+        nearby.setBadgeCount(100, 99, true);
+        assertEquals(100, nearby.badge.getCount());
+        assertEquals(99, nearby.badge.getMaxCount());
 
         int tabIndex = nearby.getIndexInTabContainer();
         Bundle savedInstanceState = new Bundle();

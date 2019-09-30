@@ -13,6 +13,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -92,7 +93,7 @@ public class BottomBarTab extends LinearLayout {
     void prepareLayout() {
         inflate(getContext(), getLayoutResource(), this);
         setOrientation(VERTICAL);
-        setGravity(isTitleless? Gravity.CENTER : Gravity.CENTER_HORIZONTAL);
+        setGravity(isTitleless ? Gravity.CENTER : Gravity.CENTER_HORIZONTAL);
         setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         setBackgroundResource(MiscUtils.getDrawableRes(getContext(), R.attr.selectableItemBackgroundBorderless));
 
@@ -337,6 +338,51 @@ public class BottomBarTab extends LinearLayout {
             badge.hide();
         }
     }
+
+    public void setBadgeCount(int count, int maxCount, boolean showMore) {
+        if (count <= 0) {
+            if (badge != null) {
+                badge.removeFromTab(this);
+                badge = null;
+            }
+
+            return;
+        }
+
+        if (badge == null) {
+            badge = new BottomBarBadge(getContext());
+            badge.attachToTab(this, badgeBackgroundColor);
+        }
+
+        badge.setCount(count, maxCount, showMore);
+
+        if (isActive && badgeHidesWhenActive) {
+            badge.hide();
+        }
+    }
+
+    public void setBadgeCountString(String countString) {
+        if (TextUtils.isEmpty(countString)) {
+            if (badge != null) {
+                badge.removeFromTab(this);
+                badge = null;
+            }
+
+            return;
+        }
+
+        if (badge == null) {
+            badge = new BottomBarBadge(getContext());
+            badge.attachToTab(this, badgeBackgroundColor);
+        }
+
+        badge.setCountString(countString);
+
+        if (isActive && badgeHidesWhenActive) {
+            badge.hide();
+        }
+    }
+
 
     public void removeBadge() {
         setBadgeCount(0);

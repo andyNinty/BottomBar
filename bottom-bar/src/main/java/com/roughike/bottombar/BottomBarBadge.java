@@ -31,6 +31,7 @@ import android.widget.TextView;
  */
 class BottomBarBadge extends TextView {
     private int count;
+    private String countString;
     private boolean isVisible = false;
 
     BottomBarBadge(Context context) {
@@ -45,6 +46,41 @@ class BottomBarBadge extends TextView {
     void setCount(int count) {
         this.count = count;
         setText(String.valueOf(count));
+    }
+
+    /**
+     * set badge with max count
+     *
+     * @param count    count
+     * @param maxCount max count
+     * @param showMore show + or not
+     */
+    void setCount(int count, int maxCount, boolean showMore) {
+        this.count = count;
+        if (count > maxCount) {
+            setText(showMore ? maxCount + "+" : String.valueOf(maxCount));
+        } else {
+            setText(String.valueOf(count));
+        }
+    }
+
+    /**
+     * set badge support strings
+     *
+     * @param countString count string
+     */
+    void setCountString(String countString) {
+        this.countString = countString;
+        setText(countString);
+    }
+
+    /**
+     * get current count string
+     *
+     * @return badge string
+     */
+    String getCountString() {
+        return countString;
     }
 
     /**

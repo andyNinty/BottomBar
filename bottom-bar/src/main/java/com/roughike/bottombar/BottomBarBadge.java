@@ -1,11 +1,12 @@
 package com.roughike.bottombar;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.Gravity;
@@ -151,10 +152,10 @@ class BottomBarBadge extends TextView {
     }
 
     void setColoredCircleBackground(int circleColor) {
-        int innerPadding = MiscUtils.dpToPixel(getContext(), 1);
-        ShapeDrawable backgroundCircle = BadgeCircle.make(innerPadding * 3, circleColor);
-        setPadding(innerPadding, innerPadding, innerPadding, innerPadding);
-        setBackgroundCompat(backgroundCircle);
+        int padding = MiscUtils.dpToPixel(getContext(), 1);
+        GradientDrawable drawable = BadgeCircle.make(circleColor, getContext());
+        setBackgroundCompat(drawable);
+        setPadding(padding, 0, padding, 0);
     }
 
     private void wrapTabAndBadgeInSameContainer(final BottomBarTab tab) {

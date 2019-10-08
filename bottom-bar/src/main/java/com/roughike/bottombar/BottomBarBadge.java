@@ -152,7 +152,7 @@ class BottomBarBadge extends TextView {
     }
 
     void setColoredCircleBackground(int circleColor) {
-        int padding = MiscUtils.dpToPixel(getContext(), 1);
+        int padding = MiscUtils.dpToPixel(getContext(), 5);
         GradientDrawable drawable = BadgeCircle.make(circleColor, getContext());
         setBackgroundCompat(drawable);
         setPadding(padding, 0, padding, 0);
@@ -194,17 +194,17 @@ class BottomBarBadge extends TextView {
         AppCompatImageView iconView = tab.getIconView();
         ViewGroup.LayoutParams params = getLayoutParams();
 
-        int size = Math.max(getWidth(), getHeight());
+//        int size = Math.max(getWidth(), getHeight());
         float xOffset = (float) (iconView.getWidth() / 1.25);
 
         setX(iconView.getX() + xOffset);
         setTranslationY(10);
 
-        if (params.width != size || params.height != size) {
-            params.width = size;
-            params.height = size;
-            setLayoutParams(params);
-        }
+//        if (params.width != size || params.height != size) {
+//            params.width = size;
+//            params.height = size;
+//        }
+        setLayoutParams(params);
     }
 
     @SuppressWarnings("deprecation")
